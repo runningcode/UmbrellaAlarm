@@ -28,8 +28,8 @@
     <string name="at_time">At set time</string>
     <string name="at_time_key">at_time_key</string>
     <string name="at_time_summary">Notify me at %s</string>
-    <string name="bring_umbrella">You should bring your umbrella because %s</string>
-    <string name="rain_description">there will be %s at %s</string>
+    <string name="bring_umbrella">You should bring your umbrella because %s.</string>
+    <string name="rain_description">there will be %1$s at %2$s</string>
     <string name="and"> and </string>
 
 </resources>
