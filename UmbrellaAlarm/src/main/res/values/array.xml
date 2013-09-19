@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="preference_values">
+        <item>@string/at_alarm</item>
+        <item>@string/at_time</item>
+    </string-array>
+    <string-array name="keys">
+        <item>@string/at_alarm_key</item>
+        <item>@string/at_time_key</item>
+    </string-array>
+</resources>
