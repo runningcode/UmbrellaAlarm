@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:title="@string/notifications"
+        android:key="@string/notifications_key"
+        android:summaryOn="@string/on"
+        android:summaryOff="@string/off"
+        android:defaultValue="true">
+    </CheckBoxPreference>
+    <ListPreference
+        android:title="@string/choose_dialog_title"
+        android:key="@string/choose_dialog_key"
+        android:dialogTitle="@string/choose_dialog_title"
+        android:entries="@array/preference_values"
+        android:entryValues="@array/keys"
+        android:dependency="@string/notifications_key">
+    </ListPreference>
+    <!--
+    <CheckBoxPreference
+        android:title="@string/geo_positioning"
+        android:key="@string/geo_positioning_key"
+        android:defaultValue="true"
+        android:enabled="false">
+    </CheckBoxPreference>
+    <EditTextPreference
+        android:title="@string/location"
+        android:key="@string/location_key"
+        android:summary="@string/location_summary"
+        android:defaultValue="@string/location_default"
+        android:enabled="false">
+    </EditTextPreference>
+    <CheckBoxPreference
+        android:title="@string/at_alarm"
+        android:key="@string/at_alarm_key"
+        android:defaultValue="true"
+        android:dependency="@string/notifications_key"
+        android:disableDependentsState="true">
+    </CheckBoxPreference>
+    <Preference
+        android:title="@string/at_time"
+        android:key="@string/at_time_key"
+        android:dependency="@string/at_alarm_key">
+    </Preference>
+    -->
+</PreferenceScreen>

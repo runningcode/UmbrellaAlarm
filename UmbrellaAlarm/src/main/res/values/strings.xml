@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UmbrellaAlarm</string>
+
+    <string name="notifications">Notify me of rainy days</string>
+    <string name="notifications_key">notifications_key</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="geo_positioning">Use network positioning</string>
+    <string name="geo_positioning_key">geo_positioning_key</string>
+
+    <string name="location">Location</string>
+    <string name="location_key">location_key</string>
+    <string name="location_summary">City if you are not using network positioning</string>
+
+    <string name="location_default">Urbana,IL</string>
+    <string name="time_hour_key">hour_key</string>
+    <string name="time_min_key">min_key</string>
+
+    <string name="choose_dialog_title">Notify about rain</string>
+    <string name="choose_dialog_key">choose_dialog_key</string>
+
+    <string name="at_alarm">When existing alarm goes off</string>
+    <string name="at_alarm_key">at_alarm_key</string>
+    <string name="at_alarm_no_alarm_summary">No existing alarm found</string>
+    <string name="at_alarm_summary">Alarm will go off at %s</string>
+
+    <string name="at_time">At set time</string>
+    <string name="at_time_key">at_time_key</string>
+    <string name="at_time_summary">Notify me at %s</string>
+
+</resources>
