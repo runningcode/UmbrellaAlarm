@@ -76,34 +76,38 @@ public class UmbrellaAlarmService extends IntentService {
                 }
             }
             if (!timeStamps.isEmpty()) {
-                DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
-                StringBuilder contentStringBuilder = new StringBuilder("You should bring your umbrella because ");
-
-                for (int i = 0; i < timeStamps.size(); i++) {
-                    if (i > 0) {
-                        contentStringBuilder.append(" and ");
-                    }
-                    contentStringBuilder.append("there will be ");
-                    contentStringBuilder.append(descriptions.get(i));
-                    contentStringBuilder.append(" from ");
-                    contentStringBuilder.append(dateFormat.format(timeStamps.get(i)));
-                    contentStringBuilder.append(" to ");
-                    contentStringBuilder.append(dateFormat.format(new Date(timeStamps.get(i).getTime()+ TimeUnit.HOURS.toMillis(3))));
-                }
-                Notification notification = new NotificationCompat.Builder(this)
-                        .setContentTitle("Umbrella Alarm")
-                        .setContentText(contentStringBuilder.toString())
-                        .setWhen(System.currentTimeMillis())
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setOnlyAlertOnce(true)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(contentStringBuilder.toString())
-                            .setSummaryText(weather.getWeatherLocation().getCityName()))
-                        .build();
-                mNotificationManager.notify(1, notification);
+                String contentStringBuilder = createNotificationString(timeStamps, descriptions);
+                notifyUser(weather.getWeatherLocation().getCityName(), contentStringBuilder);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private String createNotificationString(ArrayList<Date> timeStamps, ArrayList<String> descriptions) {
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
+        StringBuilder contentStringBuilder = new StringBuilder();
+
+        for (int i = 0; i < timeStamps.size(); i++) {
+            if (i > 0) {
+                contentStringBuilder.append(getString(R.string.and));
+            }
+            contentStringBuilder.append(String.format(getString(R.string.rain_description), descriptions.get(i), dateFormat.format(timeStamps.get(i))));
+        }
+        return String.format(getString(R.string.bring_umbrella), contentStringBuilder.toString());
+    }
+
+    private void notifyUser(String cityName, String contentString) {
+        Notification notification = new NotificationCompat.Builder(this)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(contentString)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setOnlyAlertOnce(true)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(contentString)
+                        .setSummaryText(cityName))
+                .build();
+        mNotificationManager.notify(1, notification);
     }
 }
