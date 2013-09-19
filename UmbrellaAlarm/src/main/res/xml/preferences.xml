@@ -14,7 +14,8 @@
         android:dialogTitle="@string/choose_dialog_title"
         android:entries="@array/preference_values"
         android:entryValues="@array/keys"
-        android:dependency="@string/notifications_key">
+        android:dependency="@string/notifications_key"
+        android:defaultValue="@string/at_time_key">
     </ListPreference>
     <!--
     <CheckBoxPreference
@@ -30,17 +31,5 @@
         android:defaultValue="@string/location_default"
         android:enabled="false">
     </EditTextPreference>
-    <CheckBoxPreference
-        android:title="@string/at_alarm"
-        android:key="@string/at_alarm_key"
-        android:defaultValue="true"
-        android:dependency="@string/notifications_key"
-        android:disableDependentsState="true">
-    </CheckBoxPreference>
-    <Preference
-        android:title="@string/at_time"
-        android:key="@string/at_time_key"
-        android:dependency="@string/at_alarm_key">
-    </Preference>
     -->
 </PreferenceScreen>
