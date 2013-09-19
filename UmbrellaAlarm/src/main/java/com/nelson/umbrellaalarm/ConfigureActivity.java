@@ -35,11 +35,8 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ConfigureActivity.this);
         notificationsKey = getString(R.string.notifications_key);
         chooseDialogKey = getString(R.string.choose_dialog_key);
-
         addPreferencesFromResource(R.xml.preferences);
-
         mTimeListPreference = (ListPreference) super.findPreference(chooseDialogKey);
-
         boolean enabled =  sharedPreferences.getBoolean(notificationsKey, true);
         if (enabled) {
             startCheckAlarmService();
