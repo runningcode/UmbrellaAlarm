@@ -69,6 +69,7 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         String notifyType = sharedPreferences.getString(chooseDialogKey, "poop");
         if (key.equals(notificationsKey)) {
@@ -146,7 +147,7 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
     }
 
     private void startCheckAlarmService() {
-        Intent startServiceIntent = new Intent(ConfigureActivity.this, CheckAlarmService.class);
+        Intent startServiceIntent = new Intent(getApplicationContext(), CheckAlarmService.class);
         startService(startServiceIntent);
     }
 }
