@@ -9,10 +9,11 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Locale;
 
 public class WeatherHttpClient {
 
-    private static final String FORECAST_WEATHER_URL = "http://api.openweathermap.org/data/2.5/forecast?";
+    private static final String FORECAST_WEATHER_URL = "http://api.openweathermap.org/data/2.5/forecast?lang=";
     public static final String UNKNOWN_HOST = "UNKNOWN_HOST";
 
     public String getWeatherData(String location) {
@@ -20,7 +21,8 @@ public class WeatherHttpClient {
         InputStream is = null;
 
         try {
-            URL url = new URL(FORECAST_WEATHER_URL + location);
+            String languageCode = getLanguageCode();
+            URL url = new URL(FORECAST_WEATHER_URL + languageCode + "&" + location);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setDoInput(true);
@@ -54,5 +56,19 @@ public class WeatherHttpClient {
             try { httpURLConnection.disconnect(); } catch (Throwable t) {t.printStackTrace();}
         }
         return null;
+    }
+
+    private String getLanguageCode() {
+        String language = Locale.getDefault().getLanguage();
+        if (language.equals("fr")) {
+            return language;
+        } else if (language.equals("es")) {
+            // OpenWeatherMap api uses a non-standard code for spanish
+            return "sp";
+        } else if (language.equals("de")) {
+            return language;
+        }
+        // default to english if we don't support the language
+        return "en";
     }
 }

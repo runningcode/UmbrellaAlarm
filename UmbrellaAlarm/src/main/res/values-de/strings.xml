@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RegenschirmAlarm</string>
+
+    <string name="notifications">Benachrichtige mich an regnerischen Tagen</string>
+    <string name="on">An</string>
+    <string name="off">Aus</string>
+
+    <string name="geo_positioning">Nutze Mobilfunknetz zur Standortbestimmung</string>
+
+    <!-- This is the default city when a location cannot be found. Use a popular city in your language. -->
+    <string name="location">Suche Standort</string>
+    <string name="location_summary">Welche Stadt, wenn kein WLAN/Mobilfunknetz</string>
+
+    <!-- This is the default city when a location cannot be found. Use a popular city in your language. -->
+    <string name="location_default">Berlin</string>
+
+    <!-- This is the preference for when a dialog box pops up and asks the user when they  want to be notified -->
+    <string name="choose_title">Notify me when…</string>
+    <string name="choose_dialog_title">Erinnere mich an Regen</string>
+
+    <!-- This will notify the user when their default android alarm app goes off -->
+    <string name="at_alarm">Wenn es regnet, Alarm an</string>
+    <string name="at_alarm_no_alarm_summary">Kein Alarm gefunden</string>
+    <string name="at_alarm_summary">Alarm um %s </string>
+
+    <!-- This will notify the user at the time they pick -->
+    <string name="at_time">Zur angesetzten Zeit</string>
+    <string name="at_time_summary">Benachrichtige mich um %s</string>
+
+    <!-- These are strings for the notification that pops up when it will rain -->
+    <string name="bring_umbrella">Du solltest deinen Regenschirm mitbringen, weil  %s.</string>
+    <string name="rain_description">es wird %1$s um %2$s</string>
+    <string name="and"> und </string>
+</resources>

@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">UmbrellaAlarm</string>
+    <string name="app_name">Umbrella Alarm</string>
 
     <string name="notifications">Notify me of rainy days</string>
-    <string name="notifications_key">notifications_key</string>
     <string name="on">On</string>
     <string name="off">Off</string>
+
     <string name="geo_positioning">Use network positioning</string>
-    <string name="geo_positioning_key">geo_positioning_key</string>
 
     <string name="location">Location</string>
-    <string name="location_key">location_key</string>
     <string name="location_summary">City if you are not using network positioning</string>
 
+    <!-- This is the default city when a location cannot be found. Use a popular city in your language. -->
     <string name="location_default">Urbana,IL</string>
-    <string name="time_hour_key">hour_key</string>
-    <string name="time_min_key">min_key</string>
 
+    <!-- This is the preference for when a dialog box pops up and asks the user when they  want to be notified -->
+    <string name="choose_title">Notify me when…</string>
     <string name="choose_dialog_title">Notify about rain</string>
-    <string name="choose_dialog_key">choose_dialog_key</string>
 
+    <!-- This will notify the user when their default android alarm app goes off -->
     <string name="at_alarm">When existing alarm goes off</string>
-    <string name="at_alarm_key">at_alarm_key</string>
     <string name="at_alarm_no_alarm_summary">No existing alarm found</string>
     <string name="at_alarm_summary">Alarm will go off at %s</string>
 
+    <!-- This will notify the user at the time they pick -->
     <string name="at_time">At set time</string>
-    <string name="at_time_key">at_time_key</string>
     <string name="at_time_summary">Notify me at %s</string>
+
+    <!-- These are strings for the notification that pops up when it will rain -->
     <string name="bring_umbrella">You should bring your umbrella because %s.</string>
     <string name="rain_description">there will be %1$s at %2$s</string>
-    <string name="and"> and </string>
+    <string name="and">\ and\ </string>
 
+    <!-- These are keys to fetch preferences and should not be translated -->
+    <string name="notifications_key">notifications_key</string>
+    <string name="geo_positioning_key">geo_positioning_key</string>
+    <string name="location_key">location_key</string>
+    <string name="time_hour_key">hour_key</string>
+    <string name="time_min_key">min_key</string>
+    <string name="choose_dialog_key">choose_dialog_key</string>
+    <string name="at_alarm_key">at_alarm_key</string>
+    <string name="at_time_key">at_time_key</string>
 </resources>

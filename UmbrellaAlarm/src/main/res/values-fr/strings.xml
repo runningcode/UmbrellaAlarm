@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UmbrellaAlarm</string>
+
+    <string name="notifications">Ditez moi quand il pleut</string>
+    <string name="on">Allume</string>
+    <string name="off">Eteint</string>
+    <string name="geo_positioning">Use network positioning</string>
+
+    <string name="location">Localisation</string>
+    <string name="location_summary">City if you are not using network positioning</string>
+
+    <!-- This is the default city when a location cannot be found. Use a popular city in your language. -->
+    <string name="location_default">Paris</string>
+
+    <!-- This is the preference for when a dialog box pops up and asks the user when they  want to be notified -->
+    <string name="choose_title">Notify me when…</string>
+    <string name="choose_dialog_title">Notify about rain</string>
+
+    <!-- This will notify the user when their default android alarm app goes off -->
+    <string name="at_alarm">Quand l\'alarme sonne</string>
+    <string name="at_alarm_no_alarm_summary">Aucune alarme trouve</string>
+    <string name="at_alarm_summary">L\'alarme va sonne a %s</string>
+
+    <!-- This will notify the user at the time they pick -->
+    <string name="at_time">At set time</string>
+    <string name="at_time_summary">Notifie moi a %s</string>
+
+    <!-- These are strings for the notification that pops up when it will rain -->
+    <string name="bring_umbrella">Vous devrez apporter parapluie parce que %s.</string>
+    <string name="rain_description">il y aura %1$s a %2$s</string>
+    <string name="and"> et </string>
+
+</resources>
