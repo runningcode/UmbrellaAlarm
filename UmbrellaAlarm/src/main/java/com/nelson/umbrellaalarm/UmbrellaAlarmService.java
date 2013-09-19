@@ -98,9 +98,12 @@ public class UmbrellaAlarmService extends IntentService {
     }
 
     private void notifyUser(String cityName, String contentString) {
+        // this pending intent is only there because of a bug in gingerbread
+        PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(), 0, new Intent(), 0);
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(contentString)
+                .setContentIntent(pendingIntent)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setOnlyAlertOnce(true)
