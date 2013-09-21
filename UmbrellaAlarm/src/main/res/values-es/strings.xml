@@ -29,6 +29,6 @@
     <!-- These are strings for the notification that pops up when it will rain -->
     <string name="bring_umbrella">Deberia traer su paraguas por que %s.</string>
     <string name="rain_description">habrá %1$s a %2$s</string>
-    <string name="and"> y </string>
+    <string name="and">\u0020y\u0020</string>
 
 </resources>

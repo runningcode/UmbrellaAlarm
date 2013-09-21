@@ -30,7 +30,7 @@
     <!-- These are strings for the notification that pops up when it will rain -->
     <string name="bring_umbrella">You should bring your umbrella because %s.</string>
     <string name="rain_description">there will be %1$s at %2$s</string>
-    <string name="and">\ and\ </string>
+    <string name="and">\u0020and\u0020</string>
 
     <!-- These are keys to fetch preferences and should not be translated -->
     <string name="notifications_key">notifications_key</string>

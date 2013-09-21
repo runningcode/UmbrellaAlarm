@@ -31,5 +31,5 @@
     <!-- These are strings for the notification that pops up when it will rain -->
     <string name="bring_umbrella">Du solltest deinen Regenschirm mitbringen, weil  %s.</string>
     <string name="rain_description">es wird %1$s um %2$s</string>
-    <string name="and"> und </string>
+    <string name="and">\u0020und\u0020</string>
 </resources>
