@@ -52,7 +52,7 @@ public class UmbrellaAlarmService extends IntentService {
         String locationString = "lat=" + location.getLatitude() + "&lon=" + location.getLongitude();
         String data = new WeatherHttpClient().getWeatherData(locationString);
 
-        if (data == null || data.equals(WeatherHttpClient.UNKNOWN_HOST)) {
+        if (data == null || data.equals("") || data.equals(WeatherHttpClient.UNKNOWN_HOST)) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
             alarmManager.set(AlarmManager.RTC, TimeUnit.MINUTES.toMillis(RETRY_TIMEOUT_MINS), pendingIntent);
