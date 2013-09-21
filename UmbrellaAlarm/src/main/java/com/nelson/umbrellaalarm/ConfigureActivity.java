@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class ConfigureActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
 
     private static final int TIME_PICKER_DIALOG = 0;
+    private static final boolean TESTING = false;
 
     private static String notificationsKey;
     private static String chooseDialogKey;
@@ -35,14 +37,25 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ConfigureActivity.this);
         notificationsKey = getString(R.string.notifications_key);
         chooseDialogKey = getString(R.string.choose_dialog_key);
-
         addPreferencesFromResource(R.xml.preferences);
-
         mTimeListPreference = (ListPreference) super.findPreference(chooseDialogKey);
-
         boolean enabled =  sharedPreferences.getBoolean(notificationsKey, true);
         if (enabled) {
             startCheckAlarmService();
+        }
+        if (TESTING) {
+            Preference preference = new Preference(this);
+            preference.setTitle("candy");
+            preference.setKey("cool");
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent i = new Intent(ConfigureActivity.this, UmbrellaAlarmService.class);
+                    startService(i);
+                    return false;
+                }
+            });
+            getPreferenceScreen().addPreference(preference);
         }
     }
 
