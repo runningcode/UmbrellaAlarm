@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 public class ConfigureActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
 
     private static final int TIME_PICKER_DIALOG = 0;
-    private static final boolean TESTING = true;
+    private static final boolean TESTING = false;
 
     private static String notificationsKey;
     private static String chooseDialogKey;
