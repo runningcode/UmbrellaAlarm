@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:title="@string/notifications"
-        android:key="@string/notifications_key"
-        android:summaryOn="@string/on"
-        android:summaryOff="@string/off"
-        android:defaultValue="true">
-    </CheckBoxPreference>
+    <PreferenceCategory
+        android:title="Notifications">
+        <CheckBoxPreference
+            android:title="@string/notifications"
+            android:key="@string/notifications_key"
+            android:summaryOn="@string/on"
+            android:summaryOff="@string/off"
+            android:defaultValue="true">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:title="@string/sound_title"
+            android:key="@string/sound_key"
+            android:defaultValue="true"
+            android:dependency="@string/notifications_key">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:title="@string/vibration_title"
+            android:key="@string/vibration_key"
+            android:defaultValue="true"
+            android:dependency="@string/notifications_key">
+        </CheckBoxPreference>
+    </PreferenceCategory>
     <ListPreference
         android:title="@string/choose_title"
         android:key="@string/choose_dialog_key"

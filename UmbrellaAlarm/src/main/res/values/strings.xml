@@ -3,6 +3,8 @@
     <string name="app_name">Umbrella Alarm</string>
 
     <string name="notifications">Notify me of rainy days</string>
+    <string name="sound_title">Sound</string>
+    <string name="vibration_title">Vibration</string>
     <string name="on">On</string>
     <string name="off">Off</string>
 
@@ -41,4 +43,6 @@
     <string name="choose_dialog_key">choose_dialog_key</string>
     <string name="at_alarm_key">at_alarm_key</string>
     <string name="at_time_key">at_time_key</string>
+    <string name="sound_key">sound_key</string>
+    <string name="vibration_key">vibration_key</string>
 </resources>

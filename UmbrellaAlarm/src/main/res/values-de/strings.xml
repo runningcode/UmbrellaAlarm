@@ -3,6 +3,8 @@
     <string name="app_name">RegenschirmAlarm</string>
 
     <string name="notifications">Benachrichtige mich an regnerischen Tagen</string>
+    <string name="sound_title">Sound</string>
+    <string name="vibration_title">Vibration</string>
     <string name="on">An</string>
     <string name="off">Aus</string>
 

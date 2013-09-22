@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -27,7 +28,7 @@ import java.util.logging.Logger;
 public class ConfigureActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
 
     private static final int TIME_PICKER_DIALOG = 0;
-    private static final boolean TESTING = false;
+    private static final boolean TESTING = true;
 
     private static String notificationsKey;
     private static String chooseDialogKey;
@@ -48,9 +49,10 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
         addPreferencesFromResource(R.xml.preferences);
         mTimeListPreference = (ListPreference) super.findPreference(chooseDialogKey);
         if (TESTING) {
+            PreferenceCategory preferenceCategory = new PreferenceCategory(this);
+            preferenceCategory.setTitle("Testing");
             Preference preference = new Preference(this);
             preference.setTitle("candy");
-            preference.setKey("cool");
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -61,7 +63,9 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
             });
             PreferenceScreen preferenceScreen = getPreferenceScreen();
             if (preferenceScreen != null) {
-                preferenceScreen.addPreference(preference);
+                preferenceScreen.addPreference(preferenceCategory);
+                preferenceCategory.addPreference(preference);
+
             }
         }
     }

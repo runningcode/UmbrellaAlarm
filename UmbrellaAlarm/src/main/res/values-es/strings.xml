@@ -3,8 +3,11 @@
     <string name="app_name">UmbrellaAlarm</string>
 
     <string name="notifications">Dime cuando llueva</string>
+    <string name="sound_title">Sound</string>
+    <string name="vibration_title">Vibration</string>
     <string name="on">Prendido</string>
     <string name="off">Apagado</string>
+
     <string name="geo_positioning">Ubication por red móvil</string>
 
     <string name="location">Ubicatión</string>
@@ -30,5 +33,4 @@
     <string name="bring_umbrella">Deberia traer su paraguas por que %s.</string>
     <string name="rain_description">habrá %1$s a %2$s</string>
     <string name="and">\u0020y\u0020</string>
-
 </resources>

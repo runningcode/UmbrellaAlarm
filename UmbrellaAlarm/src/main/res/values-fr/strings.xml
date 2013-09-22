@@ -5,6 +5,9 @@
     <string name="notifications">Ditez moi quand il pleut</string>
     <string name="on">Allume</string>
     <string name="off">Eteint</string>
+    <string name="sound_title">Sound</string>
+    <string name="vibration_title">Vibration</string>
+
     <string name="geo_positioning">Use network positioning</string>
 
     <string name="location">Localisation</string>
@@ -30,5 +33,4 @@
     <string name="bring_umbrella">Vous devrez apporter parapluie parce que %s.</string>
     <string name="rain_description">il y aura %1$s a %2$s</string>
     <string name="and">\u0020et\u0020</string>
-
 </resources>
