@@ -1,7 +1,4 @@
-package com.nelson.umbrellaalarm;
-
-import com.nelson.umbrellaalarm.Models.Forecast;
-import com.nelson.umbrellaalarm.Models.WeatherLocation;
+package com.nelson.umbrellaalarm.Models;
 
 import java.util.ArrayList;
 

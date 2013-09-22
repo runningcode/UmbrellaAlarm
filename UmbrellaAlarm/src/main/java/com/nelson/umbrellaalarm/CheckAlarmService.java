@@ -9,10 +9,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 
+import com.nelson.umbrellaalarm.utils.UmbrellaLogger;
+import com.nelson.umbrellaalarm.utils.Utils;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class CheckAlarmService extends IntentService {
 
@@ -27,6 +31,8 @@ public class CheckAlarmService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(CheckAlarmService.this);
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Logger logger = UmbrellaLogger.getLogger();
+        logger.info("handling intent");
 
         // repeating check service pending intent
         Intent repeat = new Intent(CheckAlarmService.this, CheckAlarmService.class);
@@ -36,24 +42,26 @@ public class CheckAlarmService extends IntentService {
         Intent alarmIntent = new Intent(CheckAlarmService.this, UmbrellaAlarmService.class);
         PendingIntent alarmPendingIntent = PendingIntent.getService(CheckAlarmService.this, ALARM_REQUEST_CODE, alarmIntent, 0 );
 
-        boolean notificationsEnabled =  prefs.getBoolean(getString(R.string.notifications_key), true);
-        boolean useAlarm = prefs.getBoolean(getString(R.string.at_alarm), true);
-
-        if (!notificationsEnabled || !useAlarm) {
-            alarmManager.cancel(repeatingPendingIntent);
-            alarmManager.cancel(alarmPendingIntent);
-            return;
-        }
-
-        // check if user has set any new alarms every hour
-        long hourInMillis = TimeUnit.HOURS.toMillis(1);
-        long startTime = System.currentTimeMillis() + hourInMillis;
-        alarmManager.setInexactRepeating(AlarmManager.RTC, startTime, hourInMillis, repeatingPendingIntent);
-
-        // set alarm for next the user's next alarm
-        long nextAlarm = getNextAlarm(this);
-        if (nextAlarm != -1) {
-            alarmManager.set(AlarmManager.RTC, nextAlarm, alarmPendingIntent);
+        switch (Utils.getPreferenceInt(CheckAlarmService.this, prefs)) {
+            case Utils.NOTIFICATIONS_DISABLED:
+                logger.info("notifications disabled");
+                alarmManager.cancel(alarmPendingIntent);
+            case Utils.AT_TIME:
+                logger.info("at time");
+                alarmManager.cancel(repeatingPendingIntent);
+                break;
+            case Utils.AT_ALARM:
+                logger.info("at alarm");
+                // check if user has set any new alarms every hour
+                long hourInMillis = TimeUnit.HOURS.toMillis(1);
+                long startTime = System.currentTimeMillis() + hourInMillis;
+                alarmManager.setInexactRepeating(AlarmManager.RTC, startTime, hourInMillis, repeatingPendingIntent);
+                // set alarm for next the user's next alarm
+                long nextAlarm = getNextAlarm(this);
+                if (nextAlarm != -1) {
+                    alarmManager.set(AlarmManager.RTC, nextAlarm, alarmPendingIntent);
+                }
+                break;
         }
     }
 

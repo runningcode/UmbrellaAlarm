@@ -3,6 +3,7 @@ package com.nelson.umbrellaalarm;
 import com.nelson.umbrellaalarm.Models.Forecast;
 import com.nelson.umbrellaalarm.Models.ForecastCondition;
 import com.nelson.umbrellaalarm.Models.Rain;
+import com.nelson.umbrellaalarm.Models.Weather;
 import com.nelson.umbrellaalarm.Models.WeatherLocation;
 
 import org.json.JSONArray;

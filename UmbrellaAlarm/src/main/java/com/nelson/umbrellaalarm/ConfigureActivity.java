@@ -11,38 +11,42 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.TimePicker;
 
+import com.nelson.umbrellaalarm.utils.UmbrellaLogger;
+import com.nelson.umbrellaalarm.utils.Utils;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class ConfigureActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener, TimePickerDialog.OnTimeSetListener {
 
     private static final int TIME_PICKER_DIALOG = 0;
-    private static final boolean TESTING = false;
+    private static final boolean TESTING = true;
 
     private static String notificationsKey;
     private static String chooseDialogKey;
 
     private SharedPreferences sharedPreferences;
     private ListPreference mTimeListPreference;
+    private Logger mLogger;
 
     @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ConfigureActivity.this);
+        mLogger = UmbrellaLogger.getLogger();
+        mLogger.info("oncreate");
         notificationsKey = getString(R.string.notifications_key);
         chooseDialogKey = getString(R.string.choose_dialog_key);
         addPreferencesFromResource(R.xml.preferences);
         mTimeListPreference = (ListPreference) super.findPreference(chooseDialogKey);
-        boolean enabled =  sharedPreferences.getBoolean(notificationsKey, true);
-        if (enabled) {
-            startCheckAlarmService();
-        }
         if (TESTING) {
             Preference preference = new Preference(this);
             preference.setTitle("candy");
@@ -55,22 +59,32 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
                     return false;
                 }
             });
-            getPreferenceScreen().addPreference(preference);
+            PreferenceScreen preferenceScreen = getPreferenceScreen();
+            if (preferenceScreen != null) {
+                preferenceScreen.addPreference(preference);
+            }
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // set summary onResume since we can't change the alarm in app
-        String alarmDialogValue = sharedPreferences.getString(chooseDialogKey, "poop");
-
-        if(alarmDialogValue.equals(getString(R.string.at_alarm_key))) {
-            setAlarmSummaryText();
-        } else if (alarmDialogValue.equals(getString(R.string.at_time_key))) {
-            int hour = sharedPreferences.getInt(getString(R.string.time_hour_key), 9);
-            int minute = sharedPreferences.getInt(getString(R.string.time_min_key), 0);
-            setAtTimeSummary(hour, minute);
+        switch (Utils.getPreferenceInt(ConfigureActivity.this, sharedPreferences)) {
+            case Utils.NOTIFICATIONS_DISABLED:
+                mLogger.info("notifications disabled");
+                break;
+            case Utils.AT_ALARM:
+                mLogger.info("at alarm");
+                startCheckAlarmService();
+                setAlarmSummaryText();
+                break;
+            case Utils.AT_TIME:
+                mLogger.info("at time");
+                startCheckAlarmService();
+                int hour = sharedPreferences.getInt(getString(R.string.time_hour_key), 9);
+                int minute = sharedPreferences.getInt(getString(R.string.time_min_key), 0);
+                setAtTimeSummary(hour, minute);
+                break;
         }
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
@@ -124,7 +138,7 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getBaseContext(), UmbrellaAlarmService.class);
         PendingIntent pendingIntent = PendingIntent.getService(getBaseContext(), 0, intent, 0);
-        long triggerAtMillis = getMillisToTime(hourOfDay, minute);
+        long triggerAtMillis = Utils.getMillisToTime(hourOfDay, minute);
         alarmManager.setRepeating(AlarmManager.RTC, triggerAtMillis, TimeUnit.DAYS.toMillis(1), pendingIntent);
 
         setAtTimeSummary(hourOfDay, minute);
@@ -145,18 +159,6 @@ public class ConfigureActivity extends PreferenceActivity implements SharedPrefe
         calendar.set(Calendar.MINUTE, minute);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
         mTimeListPreference.setSummary(String.format(getString(R.string.at_time_summary), sdf.format(calendar.getTime())));
-    }
-
-    private long getMillisToTime(int hour, int min) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, min);
-        calendar.set(Calendar.SECOND, 0);
-
-        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
-            calendar.add(Calendar.DATE, 1);
-        }
-        return calendar.getTimeInMillis();
     }
 
     private void startCheckAlarmService() {

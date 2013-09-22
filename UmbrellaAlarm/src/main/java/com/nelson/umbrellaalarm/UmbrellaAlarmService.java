@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.nelson.umbrellaalarm.Models.Forecast;
 import com.nelson.umbrellaalarm.Models.ForecastCondition;
+import com.nelson.umbrellaalarm.Models.Weather;
+import com.nelson.umbrellaalarm.utils.UmbrellaLogger;
 
 import org.json.JSONException;
 
@@ -21,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class UmbrellaAlarmService extends IntentService {
 
@@ -28,6 +31,7 @@ public class UmbrellaAlarmService extends IntentService {
 
     private NotificationManager mNotificationManager;
     private LocationManager mLocationManager;
+    private Logger logger;
 
     public UmbrellaAlarmService() {
         super("UmbrellaAlarmService");
@@ -36,14 +40,18 @@ public class UmbrellaAlarmService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
+        logger = UmbrellaLogger.getLogger();
+        logger.info("UmbrellaAlarmService onCreate");
         mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mLocationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        logger.info("UmbrellaAlarmService onHandleIntent");
         Location location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (location == null) {
+            logger.info("UmbrellaAlarmService onHandleIntent location was null");
             // TODO save something that shows that location services were disabled
             Toast.makeText(getBaseContext(), "Location Disabled", Toast.LENGTH_SHORT).show();
             return;
@@ -53,6 +61,7 @@ public class UmbrellaAlarmService extends IntentService {
         String data = new WeatherHttpClient().getWeatherData(locationString);
 
         if (data == null || data.equals("") || data.equals(WeatherHttpClient.UNKNOWN_HOST)) {
+            logger.info("UmbrellaAlarmService onHandleIntent returned data was bad");
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
             alarmManager.set(AlarmManager.RTC, TimeUnit.MINUTES.toMillis(RETRY_TIMEOUT_MINS), pendingIntent);
@@ -79,7 +88,9 @@ public class UmbrellaAlarmService extends IntentService {
                 String contentStringBuilder = createNotificationString(timeStamps, descriptions);
                 notifyUser(weather.getWeatherLocation().getCityName(), contentStringBuilder);
             }
+            logger.info("UmbrellaAlarmService onHandleIntent timestamps were empty, aka, no rain");
         } catch (JSONException e) {
+            logger.info("UmbrellaAlarmService onHandleIntent a JSON Exception occurred");
             e.printStackTrace();
         }
     }
@@ -87,7 +98,6 @@ public class UmbrellaAlarmService extends IntentService {
     private String createNotificationString(ArrayList<Date> timeStamps, ArrayList<String> descriptions) {
         DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
         StringBuilder contentStringBuilder = new StringBuilder();
-
         for (int i = 0; i < timeStamps.size(); i++) {
             if (i > 0) {
                 contentStringBuilder.append(getString(R.string.and));
